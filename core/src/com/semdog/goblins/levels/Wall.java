@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.semdog.goblins.graphics.TextureMaster;
 
 /**
@@ -32,8 +34,30 @@ public class Wall extends LevelElement {
     }
 
     @Override
+    public void beginPlayerContact() {
+
+    }
+
+    @Override
+    public boolean isTraverisble() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(float x, float y, float z) {
+        //System.out.println("The point is at " + point);
+        //System.out.println("I am at (" + (x * 10) + ", " + (y) + ", " + (z * 10) + ")");
+        return Vector2.dst(x, z, this.x * 10, this.z * 10) < 5;
+    }
+
+    @Override
     public void update(float dt) {
 
+    }
+
+    @Override
+    public void activate() {
+        System.out.println("Yee");
     }
 
     @Override

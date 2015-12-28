@@ -1,19 +1,18 @@
 package com.semdog.goblins.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.semdog.goblins.graphics.TextureMaster;
 import com.semdog.goblins.levels.Level;
+import com.semdog.goblins.player.Player;
 
 /**
  * Created by Sam on 26-Dec-15.
@@ -25,13 +24,13 @@ public class TestScreen implements GoblinScreen {
     private PerspectiveCamera camera;
 
     private ModelBatch modelBatch;
+    private DecalBatch decalBatch;
     private Environment lightingEnvironment;
 
     private Level level;
+    private Player player;
 
-    private PointLight playerLight;
-
-    private float px, py, pd, dd, dx, dy;
+    private ColorAttribute ambientLight;
 
     //private CameraInputController controller;
 
@@ -43,8 +42,9 @@ public class TestScreen implements GoblinScreen {
 
     @Override
     public void show() {
+        ambientLight = new ColorAttribute(ColorAttribute.AmbientLight, 0.5f, 0.5f, 0.4f, 1);
         lightingEnvironment = new Environment();
-        lightingEnvironment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.1f, 0.1f, 0.1f, 1));
+        lightingEnvironment.set(ambientLight);
 
         level = new Level(lightingEnvironment);
 
@@ -57,73 +57,26 @@ public class TestScreen implements GoblinScreen {
         CameraGroupStrategy strategy = new CameraGroupStrategy(camera);
 
         modelBatch = new ModelBatch();
+        decalBatch = new DecalBatch(strategy);
 
         //controller = new CameraInputController(camera);
         //Gdx.input.setInputProcessor(controller);
 
-        px = level.getSpawn().x * 10;
-        py = level.getSpawn().y * 10;
-
-        playerLight = new PointLight();
-        playerLight.setColor(Color.GREEN);
-        playerLight.setIntensity(1);
-        playerLight.setPosition(20, 0, 20);
-
-        lightingEnvironment.add(playerLight);
+        player = new Player(level.getSpawn(), lightingEnvironment);
     }
 
     @Override
     public void update(float dt) {
         level.update(dt);
+        player.update(level, dt);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            dd = 150;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            dd = -150;
-        } else {
-            dd = 0;
-        }
+        camera.far = 500;
+        ambientLight.color.set(0.2f, 0.2f, 0.2f, 1.0f);
 
-        float xe = 0;
-        float ye = 0;
+        camera.position.set(player.getX(), 7.5f, player.getY());
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            xe += 30 * MathUtils.cosDeg(-pd);
-            ye += 30 * MathUtils.sinDeg(-pd);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            xe += -30 * MathUtils.cosDeg(-pd);
-            ye += -30 * MathUtils.sinDeg(-pd);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            xe += 30 * MathUtils.sinDeg(-pd);
-            ye += -30 * MathUtils.cosDeg(-pd);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            xe += -30 * MathUtils.sinDeg(-pd);
-            ye += 30 * MathUtils.cosDeg(-pd);
-        }
-
-        px += xe * dt;
-        py += ye * dt;
-
-        playerLight.setPosition(px, 5, py);
-        playerLight.setIntensity(25f);
-
-        //px = 0;
-        //px += dt * 5;
-
-        //controller.update();
-        camera.position.set(px, 7, py);
-
-        //camera.direction.set(Vector3.X);
-
-        pd += dd * dt;
-
-        camera.rotate(Vector3.Y, dd * dt);
+        camera.rotate(Vector3.Y, player.getDd() * dt);
         camera.update();
-
-        //camera.direction.set(Vector3.X);
     }
 
     @Override
@@ -133,6 +86,7 @@ public class TestScreen implements GoblinScreen {
 
         modelBatch.begin(camera);
         level.render(modelBatch, lightingEnvironment);
+        //player.debugRender(modelBatch);
         modelBatch.end();
     }
 
@@ -143,7 +97,8 @@ public class TestScreen implements GoblinScreen {
 
     @Override
     public void resize(int width, int height) {
-
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
     }
 
     @Override

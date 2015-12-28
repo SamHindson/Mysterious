@@ -25,8 +25,9 @@ public class TextureMaster {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                loadTexture("floor1");
                 loadTexture("wall1");
+                loadTexture("floor");
+                loadTexture("dropdoor");
                 loading = false;
                 Gdx.app.log("TextureMaster", "Loaded all of it!");
             }
@@ -34,10 +35,10 @@ public class TextureMaster {
     }
 
     private static synchronized void loadTexture(String id) {
-        int x = loadNumber % 10;
-        int y = loadNumber / 10;
+        int x = loadNumber % 12;
+        int y = loadNumber / 12;
         Gdx.app.log("KEK", x + " - " + y);
-        TextureRegion region = new TextureRegion(spriteSheet, x * 10, y * 10, 10, 10);
+        TextureRegion region = new TextureRegion(spriteSheet, x * 12, y * 12, 12, 12);
         textures.put(id, region);
         loadNumber++;
     }
