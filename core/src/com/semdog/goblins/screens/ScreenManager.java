@@ -38,8 +38,6 @@ public class ScreenManager {
                 loading = false;
                 screen.show();
             }
-
-            Gdx.app.log("ScreenManager", "Loading...");
         } else {
             screen.update(dt);
         }

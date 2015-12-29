@@ -58,9 +58,6 @@ public class TestScreen implements GoblinScreen {
         modelBatch = new ModelBatch();
         decalBatch = new DecalBatch(strategy);
 
-        //controller = new CameraInputController(camera);
-        //Gdx.input.setInputProcessor(controller);
-
         player = new Player(level.getSpawn(), lightingEnvironment);
     }
 
@@ -85,7 +82,6 @@ public class TestScreen implements GoblinScreen {
 
         modelBatch.begin(camera);
         level.render(modelBatch, lightingEnvironment);
-        //player.debugRender(modelBatch);
         modelBatch.end();
     }
 
