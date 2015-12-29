@@ -53,6 +53,12 @@ public class Level {
         Model floorModel = new ModelBuilder().createBox(300, 1, 300, new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor"))), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         floor = new ModelInstance(floorModel);
         floor.transform.setToTranslation(150, -1, 150);
+
+        int bigDoodie = 17;
+
+        if(bigDoodie == 3) {
+            System.out.println("Fuck you buddy");
+        }
     }
 
     public Vector2 getSpawn() {
