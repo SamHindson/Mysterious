@@ -28,16 +28,12 @@ public class Level {
     private ModelInstance floor;
 
     public Level(Environment environment) {
-        Gdx.app.log("Level", "I mean... Yeah");
-
-        elements = new LevelElement[900];
-
         width = 30;
         height = 30;
 
-        int u = 0;
+        elements = new LevelElement[width * height];
 
-        boolean found = false;
+        int u = 0;
 
         sx = sy = 20;
 
@@ -48,9 +44,7 @@ public class Level {
                     elements[u] = new Wall(this, x, y);
                 } else if (MathUtils.randomBoolean(0.1f)) {
                     elements[u] = new DropDoor(this, x, y);
-                } /*else {
-                    elements[u] = new Wall(this, x, y);
-                }*/
+                }
 
                 u++;
             }
