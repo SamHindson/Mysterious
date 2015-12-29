@@ -15,6 +15,8 @@ import com.semdog.goblins.graphics.TextureMaster;
 
 /**
  * Created by Sam on 26-Dec-15.
+ *
+ * The level class. In the foreseeable future it'll work on loading schematics and not just randomly generated crap
  */
 public class Level {
 

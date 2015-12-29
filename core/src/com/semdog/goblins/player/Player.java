@@ -14,6 +14,9 @@ import com.semdog.goblins.levels.Level;
 
 /**
  * Created by Sam on 27-Dec-15.
+ *
+ * The player class!
+ * Handles all the nice player movement, and things
  */
 public class Player {
     private float x, y, dx, dy, dd, d;
@@ -46,28 +49,27 @@ public class Player {
             dd = 0;
         }
 
-        float xe = 0;
-        float ye = 0;
+        dx = dy = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) && level.isFree(x + 5 * MathUtils.cosDeg(-d), 5, y + 5 * MathUtils.sinDeg(-d))) {
-            xe += 30 * MathUtils.cosDeg(-d);
-            ye += 30 * MathUtils.sinDeg(-d);
+            dx += 30 * MathUtils.cosDeg(-d);
+            dy += 30 * MathUtils.sinDeg(-d);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S) && level.isFree(x - 5 * MathUtils.cosDeg(-d), 5, y - 5 * MathUtils.sinDeg(-d))) {
-            xe += -30 * MathUtils.cosDeg(-d);
-            ye += -30 * MathUtils.sinDeg(-d);
+            dx += -30 * MathUtils.cosDeg(-d);
+            dy += -30 * MathUtils.sinDeg(-d);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A) && level.isFree(x - 5 * MathUtils.cosDeg(-d + 90), 5, y - 5 * MathUtils.sinDeg(-d + 90))) {
-            xe += 30 * MathUtils.sinDeg(-d);
-            ye += -30 * MathUtils.cosDeg(-d);
+            dx += 30 * MathUtils.sinDeg(-d);
+            dy += -30 * MathUtils.cosDeg(-d);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) && level.isFree(x - 5 * MathUtils.cosDeg(-d - 90), 5, y - 5 * MathUtils.sinDeg(-d - 90))) {
-            xe += -30 * MathUtils.sinDeg(-d);
-            ye += 30 * MathUtils.cosDeg(-d);
+            dx += -30 * MathUtils.sinDeg(-d);
+            dy += 30 * MathUtils.cosDeg(-d);
         }
 
-        x += xe * dt;
-        y += ye * dt;
+        x += dx * dt;
+        y += dy * dt;
 
         playerLight.setPosition(x, 5, y);
         playerLight.setIntensity(50f);

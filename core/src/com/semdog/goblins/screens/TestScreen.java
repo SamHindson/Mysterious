@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
-import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.math.Vector3;
 import com.semdog.goblins.graphics.TextureMaster;
 import com.semdog.goblins.levels.Level;
@@ -16,6 +15,8 @@ import com.semdog.goblins.player.Player;
 
 /**
  * Created by Sam on 26-Dec-15.
+ *
+ * Just a test screen. It'll probably get changed into the play screen but w/e
  */
 public class TestScreen implements GoblinScreen {
 
@@ -31,8 +32,6 @@ public class TestScreen implements GoblinScreen {
     private Player player;
 
     private ColorAttribute ambientLight;
-
-    //private CameraInputController controller;
 
     public TestScreen(ScreenManager manager) {
         this.manager = manager;

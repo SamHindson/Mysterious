@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector3;
 
 /**
  * Created by Sam on 26-Dec-15.
+ *
+ * An abstract class which all things level-related (walls, doors, buttons, ens.) will extend.
  */
 public abstract class LevelElement {
     protected int x, y, z;
@@ -29,9 +31,16 @@ public abstract class LevelElement {
 
     public abstract boolean contains(float x, float y ,float z);
 
-    public abstract void beginPlayerContact();
-
+    /**
+     * To check whether the player is able to walk through the object. Each element does its own thing in regards
+     * to this. A door will be traversible when open, but not when closed. No Hogwarts magic here chaps.
+     *
+     * @return guess what
+     */
     public abstract boolean isTraverisble();
 
+    /**
+     * Allows thingys to be activated (a torch will turn on, a door will open, you know.)
+     */
     public abstract void activate();
 }

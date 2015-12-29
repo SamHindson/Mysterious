@@ -9,6 +9,8 @@ import com.semdog.goblins.graphics.TextureMaster;
 
 /**
  * Created by Sam on 28-Dec-15.
+ *
+ * This is a door that drops when the player activates it.
  */
 public class DropDoor extends LevelElement {
 

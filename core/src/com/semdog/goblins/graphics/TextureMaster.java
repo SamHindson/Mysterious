@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 /**
  * Created by Sam on 26-Dec-15.
+ *
+ * A class that loads all the needed textures at runtime and helps them to be easily accessible.
  */
 public class TextureMaster {
     public static boolean loading = true;
@@ -29,7 +31,6 @@ public class TextureMaster {
                 loadTexture("floor");
                 loadTexture("dropdoor");
                 loading = false;
-                Gdx.app.log("TextureMaster", "Loaded all of it!");
             }
         }).start();
     }
