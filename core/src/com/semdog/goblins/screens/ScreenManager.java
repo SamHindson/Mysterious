@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Sam on 26-Dec-15.
+ *
+ * The Screen Manager which handles the screens and shows loading screens when needed.
  */
 public class ScreenManager {
     private GoblinScreen screen;

@@ -4,13 +4,20 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.semdog.goblins.screens.ScreenManager;
 
+/**
+ * Created by Sam on 30-Feb-10
+ *
+ * The entry point for...
+ *          eheheh....
+ *       MYSTERIOUS GHOULS & GOBLINS!
+ */
+
 public class GoblinsGame extends ApplicationAdapter {
 
     private ScreenManager screenManager;
 
     @Override
     public void create() {
-        Gdx.app.log("Game", "Yea!");
         screenManager = new ScreenManager();
     }
 
