@@ -85,6 +85,7 @@ public class Player {
         modelBatch.render(nodeMarker);
     }
 
+    // TODO damn these units
     public float getX() {
         return x;
     }

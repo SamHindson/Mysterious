@@ -27,10 +27,10 @@ public class DropDoor extends LevelElement {
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
     }
 
-    public DropDoor(Level level, int x, int y) {
-        super(level, x, y);
+    public DropDoor(Level level, int x, int y, int z) {
+        super(level, x, y, z);
         model = new ModelInstance(baseModel);
-        model.transform.setToTranslation(x * 10, 5, y * 10);
+        model.transform.setToTranslation(x * 10, y * 10 + 5, z * 10);
     }
 
     @Override
@@ -51,11 +51,6 @@ public class DropDoor extends LevelElement {
     @Override
     public void render(ModelBatch modelBatch, Environment environment) {
         modelBatch.render(model, environment);
-    }
-
-    @Override
-    public boolean contains(float x, float y, float z) {
-        return Vector2.dst(x, z, this.x * 10, this.z * 10) < 5;
     }
 
     /**

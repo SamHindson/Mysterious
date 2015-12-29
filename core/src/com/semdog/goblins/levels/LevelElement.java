@@ -18,18 +18,21 @@ public abstract class LevelElement {
 
     protected ModelInstance model;
 
-    public LevelElement(Level level, int x, int y) {
+    public LevelElement(Level level, int x, int y, int z) {
         this.level = level;
         this.x = x;
-        this.z = y;
-        
-        this.y = 5;
+        this.y = y;
+        this.z = z;
     }
 
     public abstract void update(float dt);
     public abstract void render(ModelBatch modelBatch, Environment environment);
 
-    public abstract boolean contains(float x, float y ,float z);
+    public boolean contains(float x, float y ,float z) {
+            return x > (this.x * 10) - 5 && x <= (this.x * 10) + 5 &&
+                    y > (this.y * 10) - 5 && y <= (this.y * 10) + 5 &&
+                    z > (this.z * 10) - 5 && z <= (this.z * 10) + 5;
+    }
 
     /**
      * To check whether the player is able to walk through the object. Each element does its own thing in regards

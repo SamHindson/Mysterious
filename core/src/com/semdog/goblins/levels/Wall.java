@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.semdog.goblins.graphics.TextureMaster;
 
 /**
@@ -22,11 +24,11 @@ public class Wall extends LevelElement {
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
     }
 
-    public Wall(Level level, int x, int y) {
-        super(level, x, y);
+    public Wall(Level level, int x, int y, int z) {
+        super(level, x, y, z);
 
         model = new ModelInstance(baseModel);
-        model.transform.setToTranslation(x * 10, 5, y * 10);
+        model.transform.setToTranslation(x * 10, y * 10 + 5, z * 10);
     }
 
     @Override
@@ -34,16 +36,11 @@ public class Wall extends LevelElement {
         return false;
     }
 
-    /**
-     * A really super lazy implementation of collision detection, my god.
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
     @Override
     public boolean contains(float x, float y, float z) {
-        return Vector2.dst(x, z, this.x * 10, this.z * 10) < 5;
+        return x > (this.x * 10) - 5 && x <= (this.x * 10) + 5 &&
+                y > (this.y * 10) - 5 && y <= (this.y * 10) + 5 &&
+                z > (this.z * 10) - 5 && z <= (this.z * 10) + 5;
     }
 
     @Override
@@ -56,6 +53,6 @@ public class Wall extends LevelElement {
 
     @Override
     public void render(ModelBatch modelBatch, Environment environment) {
-        modelBatch.render(model);
+        modelBatch.render(model, environment);
     }
 }

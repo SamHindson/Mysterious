@@ -2,6 +2,7 @@ package com.semdog.goblins.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.semdog.goblins.graphics.TextureMaster;
 
 /**
@@ -20,49 +22,67 @@ import com.semdog.goblins.graphics.TextureMaster;
  */
 public class Level {
 
-    private LevelElement[] elements;
-    private int width, height;
+    private Array<LevelElement> elements;
+    private int width, length, height;
 
-    public int sx, sy;
+    public int sx, sz;
 
     private ModelInstance floor;
 
     public Level(Environment environment) {
-        width = 30;
-        height = 30;
+        height = 3;
 
-        elements = new LevelElement[width * height];
+        Pixmap[] levels = new Pixmap[3];
 
-        int u = 0;
+        levels[0] = new Pixmap(Gdx.files.internal("data/one1.png"));
+        levels[1] = new Pixmap(Gdx.files.internal("data/one2.png"));
+        levels[2] = new Pixmap(Gdx.files.internal("data/one3.png"));
 
-        sx = sy = 20;
+        width = 7;
+        length = 12;
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        elements = new Array<>();
 
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
-                    elements[u] = new Wall(this, x, y);
-                } else if (MathUtils.randomBoolean(0.1f)) {
-                    elements[u] = new DropDoor(this, x, y);
+        for(int y = 0; y < height; y++) {
+            for (int z = 0; z < length; z++) {
+                for(int x = 0; x < width; x++) {
+
+                    //System.out.print(Integer.toHexString(levels[y].getPixel(x, z)) + " ");
+
+                    if(levels[y].getPixel(x, z) == 0xffFFFFFF) {
+                        /*System.out.println("Heh");
+                        sx = 4;
+                        sz = 6;*/
+                        System.out.print('-');
+                    } else if(levels[y].getPixel(x, z) == 0xff) {
+                        elements.add(new Wall(this, x, y, z));
+                        System.out.print('0');
+                    } else if(levels[y].getPixel(x, z) == 0xff0000FF) {
+                        sx = x;
+                        sz = z;
+                        System.out.print('x');
+                    } else {
+                        elements.add(new DropDoor(this, x, y, z));
+                        System.out.print('?');
+                    }
+
+                    System.out.print(' ');
+
                 }
 
-                u++;
+                System.out.println();
             }
         }
 
-        Model floorModel = new ModelBuilder().createBox(300, 1, 300, new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor"))), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
+        System.out.println(sx + ", " + sz);
+
+        Model floorModel = new ModelBuilder().createBox(width * 10, 1, length * 10, new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor"))), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         floor = new ModelInstance(floorModel);
         floor.transform.setToTranslation(150, -1, 150);
-
-        int bigDoodie = 17;
-
-        if(bigDoodie == 3) {
-            System.out.println("Fuck you buddy");
-        }
     }
 
     public Vector2 getSpawn() {
-        return new Vector2(sx, sy);
+        return new Vector2(sx, sz);
     }
 
     public void render(ModelBatch modelBatch, Environment environment) {
@@ -72,7 +92,7 @@ public class Level {
             }
         }
 
-        modelBatch.render(floor, environment);
+        //modelBatch.render(floor, environment);
     }
 
     public void update(float dt) {
