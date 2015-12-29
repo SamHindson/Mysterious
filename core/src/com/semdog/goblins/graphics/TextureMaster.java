@@ -35,7 +35,6 @@ public class TextureMaster {
     private static synchronized void loadTexture(String id) {
         int x = loadNumber % 12;
         int y = loadNumber / 12;
-        Gdx.app.log("KEK", x + " - " + y);
         TextureRegion region = new TextureRegion(spriteSheet, x * 12, y * 12, 12, 12);
         textures.put(id, region);
         loadNumber++;

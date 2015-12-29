@@ -29,7 +29,6 @@ public class DropDoor extends LevelElement {
 
     public DropDoor(Level level, int x, int y) {
         super(level, x, y);
-        System.out.println("New Drop Door!");
         model = new ModelInstance(baseModel);
         model.transform.setToTranslation(x * 10, 5, y * 10);
     }
@@ -38,8 +37,6 @@ public class DropDoor extends LevelElement {
     public void update(float dt) {
         if(dropping) {
             eh -= dt * 10;
-            System.out.println("Going down!");
-            System.out.println(eh);
             model.transform.setToTranslation(x * 10, eh, z * 10);
 
             if(eh <= -5) {
