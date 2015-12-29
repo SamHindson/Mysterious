@@ -22,7 +22,7 @@ public class ScreenManager {
     private String loadingText = "Loading...";
 
     public ScreenManager() {
-        loadingFont = new BitmapFont(Gdx.files.internal("dos16.fnt"));
+        loadingFont = new BitmapFont(Gdx.files.internal("assets/dos16.fnt"));
         loadingBatch = new SpriteBatch();
 
         GlyphLayout layout = new GlyphLayout();

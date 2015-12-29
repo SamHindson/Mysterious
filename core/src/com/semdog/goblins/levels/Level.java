@@ -95,7 +95,6 @@ public class Level {
         for (LevelElement element : elements) {
             if (element != null) {
                 if (element.contains(x, y, z)) {
-                    element.beginPlayerContact();
                     return element.isTraverisble();
                 }
             }

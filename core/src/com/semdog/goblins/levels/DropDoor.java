@@ -61,11 +61,10 @@ public class DropDoor extends LevelElement {
         return Vector2.dst(x, z, this.x * 10, this.z * 10) < 5;
     }
 
-    @Override
-    public void beginPlayerContact() {
-
-    }
-
+    /**
+     * If the door has dropped, the player should be able to walk through it. Yeah?
+     * @return come on dude
+     */
     @Override
     public boolean isTraverisble() {
         return dropped;

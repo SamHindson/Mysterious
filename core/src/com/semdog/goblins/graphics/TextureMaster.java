@@ -20,18 +20,15 @@ public class TextureMaster {
     private static int loadNumber = 0;
 
     public static void init() {
-        spriteSheet = new Texture(Gdx.files.internal("sprites.png"));
+        spriteSheet = new Texture(Gdx.files.internal("assets/sprites.png"));
 
-        textures = new HashMap<String, TextureRegion>();
+        textures = new HashMap<>();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
                 loadTexture("wall1");
                 loadTexture("floor");
                 loadTexture("dropdoor");
                 loading = false;
-            }
         }).start();
     }
 
