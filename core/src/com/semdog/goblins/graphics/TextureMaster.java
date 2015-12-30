@@ -8,36 +8,36 @@ import java.util.HashMap;
 
 /**
  * Created by Sam on 26-Dec-15.
- *
+ * <p>
  * A class that loads all the needed textures at runtime and helps them to be easily accessible.
  */
 public class TextureMaster {
     public static boolean loading = true;
 
-    private static Texture spriteSheet;
+    private static Texture spriteSheet, toolSheet;
     private static HashMap<String, TextureRegion> textures;
-
-    private static int loadNumber = 0;
 
     public static void init() {
         spriteSheet = new Texture(Gdx.files.internal("assets/sprites.png"));
+        toolSheet = new Texture(Gdx.files.internal("assets/tools.png"));
 
         textures = new HashMap<>();
 
         new Thread(() -> {
-                loadTexture("wall1");
-                loadTexture("floor");
-                loadTexture("dropdoor");
-                loading = false;
+            loadTexture(spriteSheet, "wall1", 0, 0, 12, 12);
+            loadTexture(spriteSheet, "floor", 1, 0, 12, 12);
+            loadTexture(spriteSheet, "dropdoor", 2, 0, 12, 12);
+            loadTexture(spriteSheet, "sworddecal", 3, 0, 12, 12);
+            loadTexture(spriteSheet, "toolslot", 4, 0, 12, 12);
+
+            loadTexture(toolSheet, "genericsword", 0, 0, 50, 50);
+            loading = false;
         }).start();
     }
 
-    private static synchronized void loadTexture(String id) {
-        int x = loadNumber % 12;
-        int y = loadNumber / 12;
-        TextureRegion region = new TextureRegion(spriteSheet, x * 12, y * 12, 12, 12);
+    private static synchronized void loadTexture(Texture sheet, String id, int x, int y, int w, int h) {
+        TextureRegion region = new TextureRegion(sheet, x * w, y * w, w, h);
         textures.put(id, region);
-        loadNumber++;
     }
 
     public static TextureRegion get(String id) {

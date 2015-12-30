@@ -1,11 +1,15 @@
 package com.semdog.goblins.levels;
 
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.*;
+import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.semdog.goblins.graphics.TextureMaster;
+import com.semdog.goblins.player.Player;
 
 /**
  * Created by Sam on 28-Dec-15.
@@ -30,11 +34,11 @@ public class DropDoor extends LevelElement {
     public DropDoor(Level level, int x, int y, int z) {
         super(level, x, y, z);
         model = new ModelInstance(baseModel);
-        model.transform.setToTranslation(x * 10, y * 10 + 5, z * 10);
+        model.transform.setToTranslation(x * 10, y * 10 - 5, z * 10);
     }
 
     @Override
-    public void update(float dt) {
+    public void update(Level level, float dt) {
         if(dropping) {
             eh -= dt * 10;
             model.transform.setToTranslation(x * 10, eh, z * 10);
@@ -49,7 +53,12 @@ public class DropDoor extends LevelElement {
     }
 
     @Override
-    public void render(ModelBatch modelBatch, Environment environment) {
+    public void touchedByPlayer(Player player) {
+
+    }
+
+    @Override
+    public void render(DecalBatch decalBatch, ModelBatch modelBatch, Environment environment) {
         modelBatch.render(model, environment);
     }
 
@@ -63,7 +72,7 @@ public class DropDoor extends LevelElement {
     }
 
     @Override
-    public void activate() {
+    public void activate(Player player) {
         if(!dropped && !dropping) {
             dropping = true;
         }

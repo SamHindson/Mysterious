@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.semdog.goblins.player.Player;
 
 /**
  * Created by Sam on 26-Dec-15.
@@ -25,8 +26,8 @@ public abstract class LevelElement {
         this.z = z;
     }
 
-    public abstract void update(float dt);
-    public abstract void render(ModelBatch modelBatch, Environment environment);
+    public abstract void update(Level level, float dt);
+    public abstract void render(DecalBatch decalBatch, ModelBatch modelBatch, Environment environment);
 
     /**
      * A half-hearted collision detection system that will work for most blocks.
@@ -37,7 +38,7 @@ public abstract class LevelElement {
      */
     public boolean contains(float x, float y ,float z) {
             return x > (this.x * 10) - 5 && x <= (this.x * 10) + 5 &&
-                    y > (this.y * 10) - 5 && y <= (this.y * 10) + 5 &&
+                    y > ((this.y - 1) * 10) - 5 && y <= ((this.y - 1) * 10) + 5 &&
                     z > (this.z * 10) - 5 && z <= (this.z * 10) + 5;
     }
 
@@ -52,5 +53,11 @@ public abstract class LevelElement {
     /**
      * Allows thingys to be activated (a torch will turn on, a door will open, you know.)
      */
-    public abstract void activate();
+    public abstract void activate(Player player);
+
+    /**
+     * A more basic activation method that only requires the player to touch it.
+     * @param player
+     */
+    public abstract void touchedByPlayer(Player player);
 }
