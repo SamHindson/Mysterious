@@ -37,13 +37,6 @@ public class Wall extends LevelElement {
     }
 
     @Override
-    public boolean contains(float x, float y, float z) {
-        return x > (this.x * 10) - 5 && x <= (this.x * 10) + 5 &&
-                y > (this.y * 10) - 5 && y <= (this.y * 10) + 5 &&
-                z > (this.z * 10) - 5 && z <= (this.z * 10) + 5;
-    }
-
-    @Override
     public void update(float dt) {
 
     }
