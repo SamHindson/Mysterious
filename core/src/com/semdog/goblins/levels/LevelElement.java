@@ -33,7 +33,7 @@ public abstract class LevelElement {
      * @param x
      * @param y
      * @param z
-     * @return
+     * @return yey
      */
     public boolean contains(float x, float y ,float z) {
             return x > (this.x * 10) - 5 && x <= (this.x * 10) + 5 &&
