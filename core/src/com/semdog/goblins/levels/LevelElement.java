@@ -28,6 +28,13 @@ public abstract class LevelElement {
     public abstract void update(float dt);
     public abstract void render(ModelBatch modelBatch, Environment environment);
 
+    /**
+     * A half-hearted collision detection system that will work for most blocks.
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
     public boolean contains(float x, float y ,float z) {
             return x > (this.x * 10) - 5 && x <= (this.x * 10) + 5 &&
                     y > (this.y * 10) - 5 && y <= (this.y * 10) + 5 &&
