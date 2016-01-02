@@ -100,11 +100,11 @@ public class LevelEditor {
         save = new Button(1210, 700, 80, 50, "SAVE", new Color(30, 200, 30), () -> {
             l = new Level(level);
             Serialization sel = new Serialization();
-            sel.serialize(l, "Level Editor/savedLevels/" + JOptionPane.showInputDialog("Save as") + ".mggl");
+            sel.serialize(l, "editor/savedLevels/" + JOptionPane.showInputDialog("Save as") + ".mggl");
         });
 
 
-        blocks[0] = new Button(1300, 60, 180, 50, WALL, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "WALL►", new Color(225, 225, 225), () -> {
+        blocks[0] = new Button(1300, 60, 180, 50, WALL, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "WALL►", new Color(225, 225, 225), () -> {
             b = WALL;
             noDecor = 8;
             show = true;
@@ -113,7 +113,7 @@ public class LevelEditor {
             dy = 0;
             decorSelection();
         });
-        blocks[1] = new Button(1300, 120, 180, 50, FLOOR, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "FLOOR►", new Color(225, 225, 225), () -> {
+        blocks[1] = new Button(1300, 120, 180, 50, FLOOR, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "FLOOR►", new Color(225, 225, 225), () -> {
             b = FLOOR;
             noDecor = 3;
             show = true;
@@ -123,7 +123,7 @@ public class LevelEditor {
             decorSelection();
 
         });
-        blocks[2] = new Button(1300, 180, 180, 50, PICKUP, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "PICK-UP►", new Color(225, 225, 225), () -> {
+        blocks[2] = new Button(1300, 180, 180, 50, PICKUP, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "PICK-UP►", new Color(225, 225, 225), () -> {
             b = PICKUP;
             show = true;
             noDecor = 6;
@@ -132,7 +132,7 @@ public class LevelEditor {
             dy = 120;
             decorSelection();
         });
-        blocks[3] = new Button(1300, 240, 180, 50, DOOR, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "DOOR►", new Color(225, 225, 225), () -> {
+        blocks[3] = new Button(1300, 240, 180, 50, DOOR, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "DOOR►", new Color(225, 225, 225), () -> {
             b = DOOR;
             noDecor = 2;
             show = true;
@@ -141,7 +141,7 @@ public class LevelEditor {
             dy = 180;
             decorSelection();
         });
-        blocks[4] = new Button(1300, 300, 180, 50, LAMPS, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "LAMP►", new Color(225, 225, 225), () -> {
+        blocks[4] = new Button(1300, 300, 180, 50, LAMPS, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "LAMP►", new Color(225, 225, 225), () -> {
             b = LAMPS;
             noDecor = 2;
             show = true;
@@ -150,7 +150,7 @@ public class LevelEditor {
             blocks[4].setBVD(LAMPS, v, 0);
             decorSelection();
         });
-        blocks[5] = new Button(1300, 360, 180, 50, NOTHING, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "SPACE", new Color(225, 225, 225), () -> {
+        blocks[5] = new Button(1300, 360, 180, 50, NOTHING, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "SPACE", new Color(225, 225, 225), () -> {
             b = NOTHING;
             noDecor = 1;
             show = true;
@@ -159,7 +159,7 @@ public class LevelEditor {
             dy = 300;
             decorSelection();
         });
-        blocks[6] = new Button(1300, 420, 180, 50, PLAYERSPAWN, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "PLAYER SPAWN", new Color(225, 225, 225), () -> {
+        blocks[6] = new Button(1300, 420, 180, 50, PLAYERSPAWN, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "PLAYER SPAWN", new Color(225, 225, 225), () -> {
             b = PLAYERSPAWN;
             show = true;
             noDecor = 1;
@@ -168,7 +168,7 @@ public class LevelEditor {
             dy = 360;
             decorSelection();
         });
-        blocks[7] = new Button(1300, 480, 180, 50, ENEMYSPAWN, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "ENEMY SPAWN", new Color(225, 225, 225), () -> {
+        blocks[7] = new Button(1300, 480, 180, 50, ENEMYSPAWN, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "ENEMY SPAWN", new Color(225, 225, 225), () -> {
             b = ENEMYSPAWN;
             show = true;
             noDecor = 5;
@@ -177,14 +177,14 @@ public class LevelEditor {
             dy = 420;
             decorSelection();
         });
-        blocks[8] = new Button(1300, 540, 180, 50, LEVELCHANGER, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "LEVELCHANGER", new Color(225, 225, 225), () -> {
+        blocks[8] = new Button(1300, 540, 180, 50, LEVELCHANGER, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "LEVELCHANGER", new Color(225, 225, 225), () -> {
             b = LEVELCHANGER;
             noDecor = 1;
             show = true;
             blocks[8].setBVD(LEVELCHANGER, v, 0);
             decorSelection();
         });
-        blocks[9] = new Button(1300, 600, 180, 50, DECALS, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "DECALS►", new Color(225, 225, 225), () -> {
+        blocks[9] = new Button(1300, 600, 180, 50, DECALS, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "DECALS►", new Color(225, 225, 225), () -> {
             b = DECALS;
             noDecor = 4;
             show = true;
@@ -193,7 +193,7 @@ public class LevelEditor {
             dy = 480;
             decorSelection();
         });
-        blocks[10] = new Button(1300, 660, 180, 50, OBSTACLES, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "OBSTACLES►", new Color(225, 225, 225), () -> {
+        blocks[10] = new Button(1300, 660, 180, 50, OBSTACLES, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "OBSTACLES►", new Color(225, 225, 225), () -> {
             b = OBSTACLES;
             noDecor = 2;
             show = true;
@@ -202,7 +202,7 @@ public class LevelEditor {
             dy = 540;
             decorSelection();
         });
-        blocks[11] = new Button(1300, 720, 180, 50, BOSSSPAWN, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "BOSS SPAWN►", new Color(225, 225, 225), () -> {
+        blocks[11] = new Button(1300, 720, 180, 50, BOSSSPAWN, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "BOSS SPAWN►", new Color(225, 225, 225), () -> {
             b = BOSSSPAWN;
             noDecor = 1;
             show = true;
@@ -212,7 +212,7 @@ public class LevelEditor {
             decorSelection();
 
         });
-        blocks[12] = new Button(1300, 780, 180, 50, BUTTON, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "BUTTON", new Color(225, 225, 225), () -> {
+        blocks[12] = new Button(1300, 780, 180, 50, BUTTON, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "BUTTON", new Color(225, 225, 225), () -> {
             b = BUTTON;
             noDecor = 2;
             show = true;
@@ -234,7 +234,7 @@ public class LevelEditor {
     }
 
     public void decorSelection() {
-        decorArr[0] = new Button(1100, 10 + dy, 50, 50, b, v, 0, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[0] = new Button(1100, 10 + dy, 50, 50, b, v, 0, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[0];
             show = false;
             decorArr[0].setBVD(b, v, 0);
@@ -253,7 +253,7 @@ public class LevelEditor {
 
 
         });
-        decorArr[1] = new Button(1150, 10 + dy, 50, 50, b, v, 1, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[1] = new Button(1150, 10 + dy, 50, 50, b, v, 1, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[1];
             show = false;
             decorArr[1].setBVD(b, v, 1);
@@ -271,7 +271,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[2] = new Button(1200, 10 + dy, 50, 50, b, v, 2, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[2] = new Button(1200, 10 + dy, 50, 50, b, v, 2, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[2];
             show = false;
             decorArr[2].setBVD(b, v, 2);
@@ -291,7 +291,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[3] = new Button(1250, 10 + dy, 50, 50, b, v, 3, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[3] = new Button(1250, 10 + dy, 50, 50, b, v, 3, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[3];
             show = false;
             decorArr[3].setBVD(b, v, 3);
@@ -309,7 +309,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[4] = new Button(1100, 60 + dy, 50, 50, b, v, 4, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[4] = new Button(1100, 60 + dy, 50, 50, b, v, 4, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[4];
             show = false;
             decorArr[4].setBVD(b, v, 4);
@@ -327,7 +327,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[5] = new Button(1150, 60 + dy, 50, 50, b, v, 5, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[5] = new Button(1150, 60 + dy, 50, 50, b, v, 5, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[5];
             show = false;
             decorArr[5].setBVD(b, v, 5);
@@ -345,7 +345,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[6] = new Button(1200, 60 + dy, 50, 50, b, v, 6, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[6] = new Button(1200, 60 + dy, 50, 50, b, v, 6, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[6];
             decorArr[6].setBVD(b, v, 6);
             show = false;
@@ -363,7 +363,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[7] = new Button(1250, 60 + dy, 50, 50, b, v, 7, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[7] = new Button(1250, 60 + dy, 50, 50, b, v, 7, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[7];
             show = false;
             decorArr[7].setBVD(b, v, 7);
@@ -381,7 +381,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[8] = new Button(1100, 110 + dy, 50, 50, b, v, 8, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[8] = new Button(1100, 110 + dy, 50, 50, b, v, 8, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[8];
             show = false;
             decorArr[8].setBVD(b, v, 8);
@@ -399,7 +399,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[9] = new Button(1150, 110 + dy, 50, 50, b, v, 9, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[9] = new Button(1150, 110 + dy, 50, 50, b, v, 9, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[9];
             show = false;
             decorArr[9].setBVD(b, v, 9);
@@ -417,7 +417,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[10] = new Button(1200, 110 + dy, 50, 50, b, v, 10, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[10] = new Button(1200, 110 + dy, 50, 50, b, v, 10, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[10];
             show = false;
             decorArr[10].setBVD(b, v, 0xa);
@@ -435,7 +435,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[11] = new Button(1250, 110 + dy, 50, 50, b, v, 11, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[11] = new Button(1250, 110 + dy, 50, 50, b, v, 11, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[11];
             show = false;
             decorArr[11].setBVD(b, v, 0xb);
@@ -453,7 +453,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[12] = new Button(1100, 160 + dy, 50, 50, b, v, 12, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[12] = new Button(1100, 160 + dy, 50, 50, b, v, 12, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[12];
             show = false;
             decorArr[12].setBVD(b, v, 0xc);
@@ -471,7 +471,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[13] = new Button(1150, 160 + dy, 50, 50, b, v, 13, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[13] = new Button(1150, 160 + dy, 50, 50, b, v, 13, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[13];
             show = false;
             decorArr[13].setBVD(b, v, 0xd);
@@ -489,7 +489,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[14] = new Button(1200, 160 + dy, 50, 50, b, v, 14, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[14] = new Button(1200, 160 + dy, 50, 50, b, v, 14, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[14];
             show = false;
             decorArr[14].setBVD(b, v, 0xe);
@@ -507,7 +507,7 @@ public class LevelEditor {
                 id = b << 8 | v << 4 | d;
             }
         });
-        decorArr[15] = new Button(1250, 160 + dy, 50, 50, b, v, 15, "Level Editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
+        decorArr[15] = new Button(1250, 160 + dy, 50, 50, b, v, 15, "editor/assets/" + VARIANT[currentVariant] + ".png", "", new Color(225, 225, 225), () -> {
             d = DECOR[15];
             show = false;
             decorArr[15].setBVD(b, v, 0xf);

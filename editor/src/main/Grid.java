@@ -44,18 +44,18 @@ public class Grid {
                 }
                 if (LevelEditor.currentLayer == 0) {
                     g[i][j].setTileID(LevelEditor.FLOOR << 8| new Random().nextInt(3));
-                    g[i][j].setImage("Level Editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
+                    g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                 }
                 if(LevelEditor.currentLayer < 7){
                     if(i ==0 || i==length-1|| j ==0||j==width-1){
                         g[i][j].setTileID(LevelEditor.WALL << 8 | rnd);
-                        g[i][j].setImage("Level Editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
+                        g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                     }
 
                 }
                 if(LevelEditor.currentLayer ==7){
                     g[i][j].setTileID(LevelEditor.WALL << 8 | rnd);
-                    g[i][j].setImage("Level Editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
+                    g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                 }
 
             }
@@ -63,7 +63,7 @@ public class Grid {
         }
         if(LevelEditor.currentLayer == 1){
             g[18][10].setTileID(LevelEditor.PLAYERSPAWN << 8);
-            g[18][10].setImage("Level Editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
+            g[18][10].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
 
         }
 
@@ -128,7 +128,7 @@ public class Grid {
                 if (point.intersects(g[i][j].getRectangle().getBounds()) && point1.intersects(gridR.getBounds())) {
                     g[i][j].setTileID(LevelEditor.getID());
                     selected = new Rectangle(mx - (LevelEditor.bsize * size + 1) / 2, my - (LevelEditor.bsize * size + 1) / 2, LevelEditor.bsize * size + 1, LevelEditor.bsize * size + 1);
-                    g[i][j].setImage("Level Editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
+                    g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                 }
             }
         }
