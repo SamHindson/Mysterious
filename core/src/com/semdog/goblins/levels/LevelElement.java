@@ -17,6 +17,7 @@ public abstract class LevelElement {
     protected int x, y, z;
     protected Level level;
 
+    protected Model baseModel;
     protected ModelInstance model;
 
     public LevelElement(Level level, int x, int y, int z) {
@@ -31,9 +32,9 @@ public abstract class LevelElement {
 
     /**
      * A half-hearted collision detection system that will work for most blocks.
-     * @param x
-     * @param y
-     * @param z
+     * @param x x
+     * @param y y
+     * @param z q
      * @return yey
      */
     public boolean contains(float x, float y ,float z) {
@@ -57,7 +58,7 @@ public abstract class LevelElement {
 
     /**
      * A more basic activation method that only requires the player to touch it.
-     * @param player
+     * @param player dude
      */
     public abstract void touchedByPlayer(Player player);
 }

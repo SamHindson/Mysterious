@@ -23,7 +23,7 @@ import com.semdog.goblins.levels.Level;
  * Handles all the nice player movement, and things
  */
 public class Player {
-    private float x, y, z, dx, dz, dd, d, walkTime;
+    private float x, y, z, dd, d, walkTime;
 
     private PointLight playerLight;
 
@@ -50,7 +50,7 @@ public class Player {
 
         tools = new Tool[5];
 
-        toolSlot = TextureMaster.get("toolslot");
+        toolSlot = TextureMaster.get("wall5");
     }
 
     public void update(Level level, float dt) {
@@ -64,7 +64,7 @@ public class Player {
 
         level.playerIsAt(x, y, z);
 
-        dx = dz = 0;
+        float dx = 0, dz = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.W) && level.isFree(this, x + 5 * MathUtils.cosDeg(-d), 5, z + 5 * MathUtils.sinDeg(-d))) {
             dx += 30 * MathUtils.cosDeg(-d);

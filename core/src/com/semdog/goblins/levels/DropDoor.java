@@ -16,25 +16,28 @@ import com.semdog.goblins.player.Player;
  *
  * This is a door that drops when the player activates it.
  */
-public class DropDoor extends LevelElement {
+public class DropDoor extends LevelElement implements Activatible {
 
     private boolean dropping = false;
     private boolean dropped = false;
 
+    private int aid;
     private float eh = 5;
 
     private static Model baseModel;
 
     static {
         baseModel = new ModelBuilder().createBox(10, 10, 10,
-                new Material(TextureAttribute.createDiffuse(TextureMaster.get("dropdoor"))),
+                new Material(TextureAttribute.createDiffuse(TextureMaster.get("wall3"))),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
     }
 
-    public DropDoor(Level level, int x, int y, int z) {
+    public DropDoor(Level level, int x, int y, int z, int aid) {
         super(level, x, y, z);
         model = new ModelInstance(baseModel);
         model.transform.setToTranslation(x * 10, y * 10 - 5, z * 10);
+
+        this.aid = aid;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class DropDoor extends LevelElement {
             model.transform.setToTranslation(x * 10, eh, z * 10);
 
             if(eh <= -5) {
-                eh = -4.999f;
+                eh = -4.9f;
                 y = 0;
                 dropping = false;
                 dropped = true;
@@ -76,5 +79,10 @@ public class DropDoor extends LevelElement {
         if(!dropped && !dropping) {
             dropping = true;
         }
+    }
+
+    @Override
+    public int getID() {
+        return aid;
     }
 }

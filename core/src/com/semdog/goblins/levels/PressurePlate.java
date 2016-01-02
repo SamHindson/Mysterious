@@ -1,7 +1,9 @@
 package com.semdog.goblins.levels;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.*;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
@@ -9,24 +11,30 @@ import com.semdog.goblins.graphics.TextureMaster;
 import com.semdog.goblins.player.Player;
 
 /**
- * Created by Sam on 30-Dec-15.
+ * Created by Sam on 31-Dec-15.
  *
- * Just the floor, man
+ * A button which goes boom when the player stands on it
  */
-public class Floor extends LevelElement {
+public class PressurePlate extends LevelElement {
+
+    private short aid;
+    private boolean activated = false;
+
     private static Model baseModel;
 
     static {
-        baseModel = new ModelBuilder().createBox(10, 2, 10,
-                new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor1"))),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
+        baseModel = new ModelBuilder().createBox(5, 1, 5,
+                new Material(ColorAttribute.createAmbient(Color.RED)),
+                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
     }
 
-    public Floor(Level level, int x, int y, int z) {
+    public PressurePlate(Level level, int x, int y, int z, short aid) {
         super(level, x, y, z);
 
+        this.aid = aid;
+
         model = new ModelInstance(baseModel);
-        model.transform.setToTranslation(x * 10, y * 10 - 1, z * 10);
+        model.transform.setTranslation(x * 10, y * 10 - 10, z * 10);
     }
 
     @Override
@@ -40,13 +48,8 @@ public class Floor extends LevelElement {
     }
 
     @Override
-    public boolean contains(float x, float y, float z) {
-        return false;
-    }
-
-    @Override
     public boolean isTraverisble() {
-        return false;
+        return true;
     }
 
     @Override
@@ -56,6 +59,9 @@ public class Floor extends LevelElement {
 
     @Override
     public void touchedByPlayer(Player player) {
-
+        if (!activated) {
+            level.activateBlock(player, aid);
+            activated = true;
+        }
     }
 }

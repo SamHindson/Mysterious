@@ -49,7 +49,7 @@ public class TestScreen implements GoblinScreen {
 
     @Override
     public void show() {
-        ambientLight = new ColorAttribute(ColorAttribute.AmbientLight, 0.5f, 0.5f, 0.4f, 1);
+        ambientLight = new ColorAttribute(ColorAttribute.AmbientLight, 0.9f, 0.9f, 1.f, 1);
         lightingEnvironment = new Environment();
         lightingEnvironment.set(ambientLight);
 
@@ -81,7 +81,7 @@ public class TestScreen implements GoblinScreen {
         player.update(level, dt);
 
         camera.far = 500;
-        ambientLight.color.set(0.2f, 0.2f, 0.2f, 1.0f);
+        ambientLight.color.set(0.9f, 0.9f, 1.f, 1.0f);
 
         camera.position.set(player.getX(), player.getY(), player.getZ());
 

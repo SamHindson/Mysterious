@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.Array;
 import com.semdog.goblins.graphics.TextureMaster;
 import com.semdog.goblins.player.Player;
 
+import java.util.HashMap;
+
 /**
  * Created by Sam on 26-Dec-15.
  * <p>
@@ -24,6 +26,7 @@ import com.semdog.goblins.player.Player;
 public class Level {
 
     private Array<LevelElement> elements;
+    private Array<Activatible> activatibles;
     private int width, length, height;
 
     private int sx, sz;
@@ -31,6 +34,10 @@ public class Level {
     private float age;
 
     private ModelInstance floor;
+
+    private static final String[] blockTypes = {
+            "Nothing", "Wall", "Door", "Lamp", "Button", "Floor", "Player Spawn", "Level Changer", "Enemy Spawn", "Button", "Obstacle", "Chest", "Button"
+    };
 
     public Level(Environment environment) {
         height = 4;
@@ -42,44 +49,58 @@ public class Level {
         levels[2] = new Pixmap(Gdx.files.internal("data/one2.png"));
         levels[3] = new Pixmap(Gdx.files.internal("data/one3.png"));
 
-        width = 7;
-        length = 12;
+        width = 20;
+        length = 20;
 
         elements = new Array<>();
+        activatibles = new Array<>();
 
         for (int y = 0; y < height; y++) {
             for (int z = 0; z < length; z++) {
                 for (int x = 0; x < width; x++) {
 
-                    //System.out.print(Integer.toHexString(levels[y].getPixel(x, z)) + " ");
+                    int color = levels[y].getPixel(x, z);
+                    String hex = Integer.toHexString(color);
+                    System.out.println("Pixel: " + color);
+                    System.out.println("Hex: " + hex);
 
-                    if (levels[y].getPixel(x, z) == 0xffFFFFFF) {
-                        /*System.out.println("Heh");
-                        sx = 4;
-                        sz = 6;*/
-                        System.out.print('-');
-                    } else if (levels[y].getPixel(x, z) == 0xff) {
-                        elements.add(new Wall(this, x, y, z));
-                        System.out.print('0');
-                    } else if (levels[y].getPixel(x, z) == 0xff0000FF) {
-                        sx = x;
-                        sz = z;
-                        System.out.print('x');
-                    } else if (levels[y].getPixel(x, z) == 0xffFF00ff) {
-                        elements.add(new Floor(this, x, y, z));
-                        System.out.print('f');
-                    } else if (levels[y].getPixel(x, z) == 0x700000ff) {
-                        elements.add(new Pickup(this, x, y, z, "dogs", "woof"));
-                        System.out.print('>');
-                    } else {
-                        elements.add(new DropDoor(this, x, y, z));
-                        System.out.print('?');
+                    int t = (color & 0xf00000) >> 20;
+                    System.out.println("Block Type: " + t);
+
+                    int[] miscInfo = new int[5];
+
+                    miscInfo[0] = (color & 0x0f0000) >> 16;
+                    miscInfo[1] = (color & 0x00f000) >> 12;
+                    miscInfo[2] = (color & 0x000f00) >> 8;
+                    miscInfo[3] = (color & 0x0000f0) >> 4;
+                    miscInfo[4] = (color & 0x00000f);
+
+                    System.out.println();
+
+                    switch (t) {
+                        case 1:
+                            elements.add(new Wall(this, x, y, z, miscInfo[0]));
+                            break;
+                        case 2:
+                            DropDoor door = new DropDoor(this, x, y, z, miscInfo[1]);
+                            activatibles.add(door);
+                            elements.add(door);
+                            break;
+                        case 3:
+                            System.out.println("Lamps... Eh");
+                            break;
+                        case 4:
+                            elements.add(new PressurePlate(this, x, y, z, (short)miscInfo[0]));
+                            break;
+                        case 5:
+                            elements.add(new Floor(this, x, y, z));
+                            break;
+                        case 6:
+                            sx = x;
+                            sz = z;
+                            break;
                     }
-
-                    System.out.print(' ');
-
                 }
-
                 System.out.println();
             }
             System.out.println();
@@ -87,7 +108,7 @@ public class Level {
 
         System.out.println(sx + ", " + sz);
 
-        Model floorModel = new ModelBuilder().createBox(width * 10, 1, length * 10, new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor"))), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
+        Model floorModel = new ModelBuilder().createBox(width * 10, 1, length * 10, new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor2"))), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
         floor = new ModelInstance(floorModel);
         floor.transform.setToTranslation(150, -1, 150);
     }
@@ -153,5 +174,15 @@ public class Level {
 
     public void playerIsAt(float x, float y, float z) {
 
+    }
+
+    public void activateBlock(Player player, int a) {
+        System.out.println("Activating activatible #" + a);
+
+        for(Activatible activatible : activatibles) {
+            if(activatible.getID() == a) {
+                activatible.activate(player);
+            }
+        }
     }
 }

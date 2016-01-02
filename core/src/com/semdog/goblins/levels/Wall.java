@@ -16,21 +16,19 @@ import com.semdog.goblins.player.Player;
  *
  * Guess.
  */
+
 public class Wall extends LevelElement {
 
-    private static Model baseModel;
-
-    static {
-        baseModel = new ModelBuilder().createBox(10, 10, 10,
-                new Material(TextureAttribute.createDiffuse(TextureMaster.get("wall1"))),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
-    }
-
-    public Wall(Level level, int x, int y, int z) {
+    public Wall(Level level, int x, int y, int z, int decor) {
         super(level, x, y, z);
+
+        baseModel = new ModelBuilder().createBox(10, 10, 10,
+                new Material(TextureAttribute.createDiffuse(TextureMaster.get("wall" + (decor + 1)))),
+                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
 
         model = new ModelInstance(baseModel);
         model.transform.setToTranslation(x * 10, y * 10 - 5, z * 10);
+        model.transform.rotate(Vector3.Z, -90);
     }
 
     @Override

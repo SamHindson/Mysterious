@@ -18,17 +18,25 @@ public class TextureMaster {
     private static HashMap<String, TextureRegion> textures;
 
     public static void init() {
-        spriteSheet = new Texture(Gdx.files.internal("assets/sprites.png"));
+        spriteSheet = new Texture(Gdx.files.internal("assets/sprites2.png"));
         toolSheet = new Texture(Gdx.files.internal("assets/tools.png"));
 
         textures = new HashMap<>();
 
         new Thread(() -> {
-            loadTexture(spriteSheet, "wall1", 0, 0, 12, 12);
-            loadTexture(spriteSheet, "floor", 1, 0, 12, 12);
-            loadTexture(spriteSheet, "dropdoor", 2, 0, 12, 12);
-            loadTexture(spriteSheet, "sworddecal", 3, 0, 12, 12);
-            loadTexture(spriteSheet, "toolslot", 4, 0, 12, 12);
+            loadTexture(spriteSheet, "wall1", 0, 0, 16, 16);
+            loadTexture(spriteSheet, "wall2", 1, 0, 16, 16);
+            loadTexture(spriteSheet, "wall3", 2, 0, 16, 16);
+            loadTexture(spriteSheet, "wall4", 3, 0, 16, 16);
+            loadTexture(spriteSheet, "wall5", 4, 0, 16, 16);
+            loadTexture(spriteSheet, "wall6", 5, 0, 16, 16);
+            loadTexture(spriteSheet, "wall7", 6, 0, 16, 16);
+            loadTexture(spriteSheet, "wall8", 7, 0, 16, 16);
+            loadTexture(spriteSheet, "floor1", 0, 1, 16, 16);
+            loadTexture(spriteSheet, "floor2", 0, 1, 16, 16);
+            loadTexture(spriteSheet, "floor3", 1, 1, 16, 16);
+            loadTexture(spriteSheet, "pressureplate", 0, 2, 16, 16);
+            loadTexture(spriteSheet, "sworddecal", 0, 3, 16, 16);
 
             loadTexture(toolSheet, "genericsword", 0, 0, 50, 50);
             loading = false;
