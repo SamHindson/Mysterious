@@ -8,6 +8,8 @@ import java.awt.event.MouseMotionListener;
 
 /**
  * Created by Blake on 12/30/2015.
+ *
+ * I got framed once
  */
 public class Frame extends JPanel {
 
@@ -72,17 +74,22 @@ public class Frame extends JPanel {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        JFrame f = new JFrame("Mysterious Level editor!");
+        JFrame f = new JFrame("Mysterious SLevel Editor");
         Frame j = new Frame();
         f.setSize(800 + 300+200+200, 880);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.add(j);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        while (true) {
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        boolean running = true;
+
+        // TODO get rid of this infinite loop - this kind of stuff scares me.
+        //                          - Sam
+
+        while (running) {
             f.repaint();
             Thread.sleep(16);
-
         }
     }
 }

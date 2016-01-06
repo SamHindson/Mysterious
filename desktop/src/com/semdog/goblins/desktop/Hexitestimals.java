@@ -6,8 +6,8 @@ package com.semdog.goblins.desktop;
  */
 public class Hexitestimals {
     public static void main(String[] args) {
-        int k = 0x900000;
-        int p = (k & 0xF00000) >> 20;
+        int k = 0x4 << 12;
+        int p = 0x69 << 8;
         ph(p);
     }
 

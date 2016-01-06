@@ -7,6 +7,8 @@ import java.util.logging.Level;
 
 /**
  * Created by Blake on 12/30/2015.
+ *
+ * La griglia
  */
 public class Grid {
     private Tile[][] g;
@@ -15,7 +17,6 @@ public class Grid {
     private Frame f;
 
     private int tileID;
-
 
     public Grid(Frame f, int x, int y, int width, int length, int size) {
         this.length = length;
@@ -43,18 +44,17 @@ public class Grid {
                     rnd -=2 ;
                 }
                 if (LevelEditor.currentLayer == 0) {
-                    g[i][j].setTileID(LevelEditor.FLOOR << 8| new Random().nextInt(3));
+                    g[i][j].setTileID(LevelEditor.FLOOR << 16 | new Random().nextInt(3) << 8);
                     g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                 }
                 if(LevelEditor.currentLayer < 7){
                     if(i ==0 || i==length-1|| j ==0||j==width-1){
-                        g[i][j].setTileID(LevelEditor.WALL << 8 | rnd);
+                        g[i][j].setTileID(LevelEditor.WALL << 16 | rnd << 8);
                         g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                     }
-
                 }
                 if(LevelEditor.currentLayer ==7){
-                    g[i][j].setTileID(LevelEditor.WALL << 8 | rnd);
+                    g[i][j].setTileID(LevelEditor.WALL << 16 | rnd << 8);
                     g[i][j].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
                 }
 
@@ -62,7 +62,7 @@ public class Grid {
 
         }
         if(LevelEditor.currentLayer == 1){
-            g[18][10].setTileID(LevelEditor.PLAYERSPAWN << 8);
+            g[18][10].setTileID(LevelEditor.PLAYERSPAWN << 16);
             g[18][10].setImage("editor/assets/" + LevelEditor.VARIANT[LevelEditor.getCurrentVariant()] + ".png");
 
         }
@@ -87,9 +87,9 @@ public class Grid {
                 g2d.draw(g[i][j].getRectangle());
             }
         }
+
         g2d.setColor(new Color(0f, 0.8f, 0.03529412f, 0.7f));
         g2d.fill(selected);
-
     }
 
     public void drawDisplayGrid(Graphics2D g2d) {

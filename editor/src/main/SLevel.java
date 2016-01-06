@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 /**
  * Created by Blake on 1/1/2016.
+ *
+ * The level editor level
  */
-public class Level implements Serializable {
-    int[][][] level;
 
-    public Level( Grid[] g) {
+public class SLevel implements Serializable {
+    private int[][][] level;
+
+    public SLevel(Grid[] g) {
         level = new int[8][20][20];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 20; j++) {
@@ -18,9 +21,11 @@ public class Level implements Serializable {
             }
         }
         System.out.println(toString());
-
     }
 
+    public int[][][] getSchems() {
+        return level;
+    }
 
     @Override
     public String toString() {

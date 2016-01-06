@@ -13,8 +13,10 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.semdog.goblins.datamanagement.SLevelLoader;
 import com.semdog.goblins.graphics.TextureMaster;
 import com.semdog.goblins.player.Player;
+import main.SLevel;
 
 import java.util.HashMap;
 
@@ -33,24 +35,27 @@ public class Level {
 
     private float age;
 
-    private ModelInstance floor;
-
-    private static final String[] blockTypes = {
-            "Nothing", "Wall", "Door", "Lamp", "Button", "Floor", "Player Spawn", "Level Changer", "Enemy Spawn", "Button", "Obstacle", "Chest", "Button"
-    };
+    public static final int NOTHING = 0;//        shift bits        normal b|v|d
+    public static final int WALL = 0x1;//            (8)   nomral
+    public static final int DOOR = 0x2;//            (16)  b|v|d|id
+    public static final int LAMPS = 0x3;//           (16)  b|v|d|id
+    public static final int PICKUP = 0x4;//          (8)   normal
+    public static final int FLOOR = 0x5;//           (8)   normal
+    public static final int PLAYERSPAWN = 0x6; //    (0)   b
+    public static final int ENEMYSPAWN = 0x7;//      (4)   normal
+    public static final int DECALS = 0x8;//          (8)   normal
+    public static final int OBSTACLES = 0x9;//       (8)   normal
+    public static final int BOSSSPAWN = 0xA;//       (4)   b|type
+    public static final int BUTTON = 0xB;//          (16)  b|v|d|id
+    public static final int LEVELCHANGER = 0xC;//    (8)   b|level
 
     public Level(Environment environment) {
         height = 4;
 
-        Pixmap[] levels = new Pixmap[4];
+        SLevel k = SLevelLoader.load("doogies");
 
-        levels[0] = new Pixmap(Gdx.files.internal("data/one0.png"));
-        levels[1] = new Pixmap(Gdx.files.internal("data/one1.png"));
-        levels[2] = new Pixmap(Gdx.files.internal("data/one2.png"));
-        levels[3] = new Pixmap(Gdx.files.internal("data/one3.png"));
-
-        width = 20;
-        length = 20;
+        width = k.getSchems()[0].length;
+        length = k.getSchems()[0][0].length;
 
         elements = new Array<>();
         activatibles = new Array<>();
@@ -59,45 +64,62 @@ public class Level {
             for (int z = 0; z < length; z++) {
                 for (int x = 0; x < width; x++) {
 
-                    int color = levels[y].getPixel(x, z);
+                    int color = k.getSchems()[y][z][x];
                     String hex = Integer.toHexString(color);
-                    System.out.println("Pixel: " + color);
-                    System.out.println("Hex: " + hex);
+                    //System.out.println("Pixel: " + color);
+                    //System.out.println("Hex: " + hex);
 
-                    int t = (color & 0xf00000) >> 20;
-                    System.out.println("Block Type: " + t);
+                    int t = (color & 0xf0000) >> 16;
+                    //System.out.println("Block Type: " + t);
 
                     int[] miscInfo = new int[5];
 
-                    miscInfo[0] = (color & 0x0f0000) >> 16;
-                    miscInfo[1] = (color & 0x00f000) >> 12;
-                    miscInfo[2] = (color & 0x000f00) >> 8;
-                    miscInfo[3] = (color & 0x0000f0) >> 4;
-                    miscInfo[4] = (color & 0x00000f);
+                    miscInfo[0] = (color & 0x0f000) >> 12;
+                    miscInfo[1] = (color & 0x00f00) >> 8;
+                    miscInfo[2] = (color & 0x000f0) >> 4;
+                    miscInfo[3] = (color & 0x0000f);
 
                     System.out.println();
 
                     switch (t) {
-                        case 1:
+                        case WALL:
                             elements.add(new Wall(this, x, y, z, miscInfo[0]));
                             break;
-                        case 2:
-                            DropDoor door = new DropDoor(this, x, y, z, miscInfo[1]);
+                        case DOOR:
+                            DropDoor door = new DropDoor(this, x, y, z, miscInfo[2]);
                             activatibles.add(door);
                             elements.add(door);
                             break;
-                        case 3:
-                            System.out.println("Lamps... Eh");
+                        case LAMPS:
+
                             break;
-                        case 4:
-                            elements.add(new PressurePlate(this, x, y, z, (short)miscInfo[0]));
+                        case PICKUP:
+
                             break;
-                        case 5:
+                        case FLOOR:
                             elements.add(new Floor(this, x, y, z));
                             break;
-                        case 6:
+                        case PLAYERSPAWN:
                             sx = x;
                             sz = z;
+                            break;
+                        case ENEMYSPAWN:
+
+                            break;
+                        case DECALS:
+
+                            break;
+                        case OBSTACLES:
+
+                            break;
+                        case BOSSSPAWN:
+
+                            break;
+                        case BUTTON:
+                            elements.add(new PressurePlate(this, x, y, z, (short)miscInfo[2]));
+                            break;
+                        case LEVELCHANGER:
+
                             break;
                     }
                 }
@@ -109,8 +131,6 @@ public class Level {
         System.out.println(sx + ", " + sz);
 
         Model floorModel = new ModelBuilder().createBox(width * 10, 1, length * 10, new Material(TextureAttribute.createDiffuse(TextureMaster.get("floor2"))), VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal | VertexAttributes.Usage.TextureCoordinates);
-        floor = new ModelInstance(floorModel);
-        floor.transform.setToTranslation(150, -1, 150);
     }
 
     public Vector2 getSpawn() {

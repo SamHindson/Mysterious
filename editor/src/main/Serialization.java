@@ -7,9 +7,11 @@ import java.io.ObjectOutputStream;
 
 /**
  * Created by Blake on 1/1/2016.
+ *
+ * "Really wild, General"
  */
 public class Serialization {
-    public void serialize(Level l,String path){
+    public void serialize(SLevel l, String path){
         try ( ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File(path)))){
            out.writeObject(l);
         } catch (IOException e) {
