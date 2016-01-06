@@ -22,6 +22,7 @@ import com.semdog.goblins.player.Player;
  * <p>
  * Just a test screen. It'll probably get changed into the play screen but w/e
  */
+
 public class TestScreen implements GoblinScreen {
 
     private ScreenManager manager;
@@ -37,9 +38,6 @@ public class TestScreen implements GoblinScreen {
     private Player player;
 
     private ColorAttribute ambientLight;
-
-    private FrameBuffer frameBuffer;
-    private SpriteBatch frameBufferBatch;
 
     public TestScreen(ScreenManager manager) {
         this.manager = manager;
@@ -68,10 +66,6 @@ public class TestScreen implements GoblinScreen {
 
         player = new Player(level.getSpawn(), lightingEnvironment);
 
-        frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, true);
-        frameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
-        frameBufferBatch = new SpriteBatch();
         hudBatch = new SpriteBatch();
     }
 
@@ -91,7 +85,6 @@ public class TestScreen implements GoblinScreen {
 
     @Override
     public void render(float delta) {
-        frameBuffer.begin();
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl20.glClearColor(0, 0, 0, 0.9f);
 
@@ -103,12 +96,6 @@ public class TestScreen implements GoblinScreen {
         hudBatch.begin();
         player.drawHUD(hudBatch);
         hudBatch.end();
-
-        frameBuffer.end();
-
-        frameBufferBatch.begin();
-        frameBufferBatch.draw(frameBuffer.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1, 1);
-        frameBufferBatch.end();
     }
 
     @Override
